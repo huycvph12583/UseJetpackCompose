@@ -1,9 +1,12 @@
 package com.example.usejetpackcompose
 
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,11 +14,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -53,9 +61,61 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
 //                    Greeting("Huy Chu")
-                    TextFiled1()
+                    ButtonView()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun ButtonView() {
+    Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
+        // Simple Button
+        Button(onClick = { /*TODO*/ }) {
+            Text(text = "ButtonSimple")
+        }
+        // Change color background and conner button
+        Button(
+            onClick = {
+                // your onclick code
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+            shape = CutCornerShape(0)
+        ) {
+            Text(text = "Button with gray background", color = Color.White)
+        }
+        // Button with multiple text
+        Button(onClick = { /*TODO*/ }) {
+            Text(text = "Click")
+            Spacer(modifier = Modifier.width(width = 10.dp))
+            Text(text = "Here", color = Color.Black)
+        }
+        // Button with icon
+        Button(onClick = { /*TODO*/ }) {
+            Image(imageVector = Icons.Default.ShoppingCart, contentDescription = "Add to cart")
+            Text(text = "Add to cart", Modifier.padding(start = 10.dp))
+        }
+        // Button border
+        Button(
+            onClick = { /*TODO*/ },
+            colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Blue),
+            border = BorderStroke(1.dp, color = Color.Red)
+        ) {
+            Text(text = "Button with border", color = Color.White)
+        }
+        // Button elevation
+        Button(
+            onClick = {
+                // your onclick code here
+            },
+            elevation = ButtonDefaults.buttonElevation(
+                defaultElevation = 10.dp,
+                pressedElevation = 15.dp,
+                disabledElevation = 0.dp
+            )
+        ) {
+            Text(text = "Button with elevation")
         }
     }
 }
@@ -172,10 +232,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     }
 } // sử dung textview trong jetpack compose
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     UseJetpackComposeTheme {
-        TextFiled1()
+//        Greeting(name = "Huychu")
+//        TextFiled1()
+        ButtonView()
     }
 }
