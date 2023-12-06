@@ -8,7 +8,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -24,6 +27,8 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +39,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -61,9 +67,57 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
 //                    Greeting("Huy Chu")
-                    ButtonView()
+//                    ButtonView()
+                    CheckBoxView()
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun CheckBoxView() {
+    // myState dung để lưu trạng thái của jetpack compose
+    var myState by remember { mutableStateOf(false) }
+    Column(modifier = Modifier.fillMaxSize().padding(10.dp)) {
+        // Simple checkbox
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(10.dp)
+                .border(2.dp, Color.Red, RoundedCornerShape(10.dp))
+        ) {
+            Checkbox(
+                checked = myState,
+                onCheckedChange = { myState = it },
+            )
+            Text(text = "Simple checkbox", modifier = Modifier.padding(top = 15.dp))
+        }
+        // change color checkbox
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(10.dp)
+                .border(2.dp, Color.Red, RoundedCornerShape(10.dp))
+        ) {
+            Checkbox(
+                checked = myState,
+                onCheckedChange = { myState = it },
+                colors = CheckboxDefaults.colors(Color.Green)
+            )
+            Text(text = "change color checkbox", modifier = Modifier.padding(top = 15.dp))
+        }
+        // Styling of Checkboxes
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(10.dp)
+                .border(2.dp, Color.Red, RoundedCornerShape(10.dp))
+        ) {
+            Checkbox(
+                checked = myState,
+                onCheckedChange = { myState = it },
+                colors = CheckboxDefaults.colors(
+                    uncheckedColor = Color.Green,
+                    checkedColor = Color.Yellow,
+                    checkmarkColor = Color.Magenta
+                )
+            )
+            Text(text = "change color checkbox", modifier = Modifier.padding(top = 15.dp))
         }
     }
 }
@@ -118,7 +172,7 @@ fun ButtonView() {
             Text(text = "Button with elevation")
         }
     }
-}
+} // sử dụng button trong jetpack compose
 
 @Composable
 fun TextFiled1() {
@@ -207,7 +261,7 @@ fun TextFiled1() {
             }
         )
     }
-}
+} // sử dụng editext trong jetpack compose
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -236,8 +290,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     UseJetpackComposeTheme {
+        CheckBoxView()
 //        Greeting(name = "Huychu")
 //        TextFiled1()
-        ButtonView()
+//        ButtonView()
     }
 }
